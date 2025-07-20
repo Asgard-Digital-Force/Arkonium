@@ -18,7 +18,6 @@ jobs:
 
       - name: Set .env.preprod
         run: |
-          echo "VITE_APP_BASE_API_URL=https://api.prod.terpsiconnect.com/api" > .env
           echo "VITE_APP_VERSION=$(echo $GITHUB_REF | sed 's|refs/tags/||')" >> .env
 
       - name: Check .env content
@@ -45,5 +44,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
-          source: "dist/**"
+          source: |
+            dist/*
+            dist/.[!.]*
           target: "/homez.1035/mqtmcvu/www/arkonium"
