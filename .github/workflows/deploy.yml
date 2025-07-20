@@ -1,0 +1,49 @@
+name: Deploy prod Frontend
+
+on:
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Set .env.preprod
+        run: |
+          echo "VITE_APP_BASE_API_URL=https://api.prod.terpsiconnect.com/api" > .env
+          echo "VITE_APP_VERSION=$(echo $GITHUB_REF | sed 's|refs/tags/||')" >> .env
+
+      - name: Check .env content
+        run: cat .env
+
+      - name: Build project
+        run: npm run build
+
+      - name: Add .htaccess for SPA routing
+        run: |
+          cat <<EOF > dist/.htaccess
+          <IfModule mod_rewrite.c>
+          RewriteEngine On
+          RewriteBase /
+          RewriteCond %{REQUEST_FILENAME} !-f
+          RewriteCond %{REQUEST_FILENAME} !-d
+          RewriteRule ^ index.html [L]
+          </IfModule>
+          EOF
+
+      - name: Deploy via SSH
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          source: "dist/**"
+          target: "/homez.1035/mqtmcvu/www/arkonium"
