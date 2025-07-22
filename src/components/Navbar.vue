@@ -7,6 +7,6 @@
 <!--      <a href="#temoignages" class="ml-6 text-ark-accent hover:underline">Témoignages</a>-->
       <a href="#contact" class="ml-6 text-ark-accent hover:underline">Contact</a>
     </nav>
-    <a href="#contact" class="cta ml-8 text-ark-accent">Planifier un appel</a>
+    <a href="https://cal.com/arkonium/" class="cta ml-8 text-ark-accent">Planifier un appel</a>
   </header>
 </template>

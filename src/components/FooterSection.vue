@@ -11,7 +11,7 @@
       <a href="#" class="text-ark-accent hover:underline">Ressources</a>
       <a href="#" class="text-ark-accent hover:underline">Auto-diagnostic</a>
       <a href="#" class="text-ark-accent hover:underline">Starter Kit CTO</a>
-      <a href="#contact" class="text-ark-accent hover:underline">Planifier un appel</a>
+      <a href="https://cal.com/arkonium/" class="text-ark-accent hover:underline">Planifier un appel</a>
     </nav>
     <p class="text-xs text-ark-accent">
       &copy; 2025 Arkonium. Tous droits réservés.
