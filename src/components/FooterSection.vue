@@ -9,7 +9,7 @@
     </p>
     <nav class="flex flex-wrap justify-center gap-4 text-[--accent] text-sm mb-4">
       <a href="#" class="text-ark-accent hover:underline">Ressources</a>
-      <a href="#" class="text-ark-accent hover:underline">Auto-diagnostic</a>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSdO-txhbPsl6NLgNs4IETowftl4gFge8_HLbIkOm5XmFu9MxQ/viewform?usp=header" class="text-ark-accent hover:underline">Auto-diagnostic</a>
       <a href="#" class="text-ark-accent hover:underline">Starter Kit CTO</a>
       <a href="https://cal.com/arkonium/" class="text-ark-accent hover:underline">Planifier un appel</a>
     </nav>
