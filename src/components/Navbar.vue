@@ -6,7 +6,12 @@
       <a href="#offres" class="ml-6 text-ark-accent hover:underline">Offres</a>
 <!--      <a href="#temoignages" class="ml-6 text-ark-accent hover:underline">Témoignages</a>-->
       <a href="#contact" class="ml-6 text-ark-accent hover:underline">Contact</a>
+      <RouterLink to="/ressources" class="hover:underline">Ressources</RouterLink>
     </nav>
     <a href="https://cal.com/arkonium/" class="cta ml-8 text-ark-accent">Planifier un appel</a>
   </header>
 </template>
+
+<script setup>
+import { RouterLink } from 'vue-router'
+</script>
