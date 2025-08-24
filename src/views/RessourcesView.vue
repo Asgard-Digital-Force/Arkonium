@@ -58,7 +58,7 @@
           <h3 class="text-xl font-bold text-ark-accent mb-2">🧩 Clarté Produit</h3>
           <p class="text-ark-text mb-4">Pose les bases de ton produit, évite les fonctionnalités inutiles, et construis avec justesse.</p>
           <a href="/pdf/livret-produit.pdf" target="_blank" class="text-ark-accent font-bold hover:underline">Télécharger →</a>
-          <RouterLink to="/coming-soon" class="text-ark-accent font-bold hover:underline">Télécharger →</RouterLink>
+<!--          <RouterLink to="/coming-soon" class="text-ark-accent font-bold hover:underline">Télécharger →</RouterLink>-->
         </div>
 
         <!-- Pilier Technique -->
@@ -66,7 +66,7 @@
           <h3 class="text-xl font-bold text-ark-accent mb-2">🛠 Clarté Technique</h3>
           <p class="text-ark-text mb-4">Structure ton code, ton infrastructure et ta gouvernance pour éviter la dette technique.</p>
           <a href="/pdf/livret-technique.pdf" target="_blank" class="text-ark-accent font-bold hover:underline">Télécharger →</a>
-          <RouterLink to="/coming-soon" class="text-ark-accent font-bold hover:underline">Télécharger →</RouterLink>
+<!--          <RouterLink to="/coming-soon" class="text-ark-accent font-bold hover:underline">Télécharger →</RouterLink>-->
         </div>
 
         <!-- Pilier Sécurité -->
@@ -74,7 +74,7 @@
           <h3 class="text-xl font-bold text-ark-accent mb-2">🔒 Clarté Sécurité</h3>
           <p class="text-ark-text mb-4">Découvre les fondamentaux d’une sécurité saine et proportionnée dès le départ.</p>
           <a href="/pdf/livret-securite.pdf" target="_blank" class="text-ark-accent font-bold hover:underline">Télécharger →</a>
-          <RouterLink to="/coming-soon" class="text-ark-accent font-bold hover:underline">Télécharger →</RouterLink>
+<!--          <RouterLink to="/coming-soon" class="text-ark-accent font-bold hover:underline">Télécharger →</RouterLink>-->
         </div>
 
         <!-- Pilier Croissance -->
@@ -82,7 +82,7 @@
           <h3 class="text-xl font-bold text-ark-accent mb-2">📈 Clarté Croissance</h3>
           <p class="text-ark-text mb-4">Anticipe les points de rupture, automatise, et garde le cap sans perdre l’essentiel.</p>
           <a href="/pdf/livret-croissance.pdf" target="_blank" class="text-ark-accent font-bold hover:underline">Télécharger →</a>
-          <RouterLink to="/coming-soon" class="text-ark-accent font-bold hover:underline">Télécharger →</RouterLink>
+<!--          <RouterLink to="/coming-soon" class="text-ark-accent font-bold hover:underline">Télécharger →</RouterLink>-->
         </div>
       </div>
     </section>
