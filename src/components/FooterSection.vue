@@ -8,15 +8,19 @@
       J’aide les fondateurs et les équipes techniques à poser des bases solides, sécuriser leurs décisions et construire des systèmes qui durent.
     </p>
     <nav class="flex flex-wrap justify-center gap-4 text-[--accent] text-sm mb-4">
-      <a href="#" class="text-ark-accent hover:underline">Ressources</a>
-      <a href="#" class="text-ark-accent hover:underline">Auto-diagnostic</a>
-      <a href="#" class="text-ark-accent hover:underline">Starter Kit CTO</a>
-      <a href="#contact" class="text-ark-accent hover:underline">Planifier un appel</a>
+      <RouterLink to="/ressources" class="ml-6 text-ark-accent hover:underline">Ressources</RouterLink>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSdO-txhbPsl6NLgNs4IETowftl4gFge8_HLbIkOm5XmFu9MxQ/viewform?usp=header" class="text-ark-accent hover:underline">Auto-diagnostic</a>
+      <RouterLink to="/ressources" class="ml-6 text-ark-accent hover:underline">Starter Kit CTO</RouterLink>
+      <a href="https://cal.com/arkonium/" class="text-ark-accent hover:underline">Planifier un appel</a>
     </nav>
     <p class="text-xs text-ark-accent">
       &copy; 2025 Arkonium. Tous droits réservés.
     </p>
   </footer>
 </template>
-<script setup lang="ts">
+
+<script setup>
+import { RouterLink, useRoute } from 'vue-router'
+
+const route = useRoute()
 </script>
