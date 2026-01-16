@@ -1,0 +1,134 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Décommenter pour le développement local uniquement
+# local_backend: true
+
+media_folder: public/images
+public_folder: /images
+
+locale: 'fr'
+
+slug:
+  encoding: "ascii"
+  clean_accents: true
+  sanitize_replacement: "-"
+
+collections:
+  # ==================
+  # BLOG
+  # ==================
+  - name: "blog"
+    label: "Articles de blog"
+    folder: "content/blog"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    editor:
+      preview: false
+    sortable_fields: ['date', 'title']
+    view_groups:
+      - label: "Année"
+        field: date
+        pattern: '\d{4}'
+    fields:
+      - { label: "Titre", name: "title", widget: "string", required: true }
+      - { label: "Description", name: "description", widget: "text", required: true, hint: "Résumé affiché dans la liste et pour le SEO (150-160 caractères)" }
+      - { label: "Date de publication", name: "date", widget: "datetime", format: "YYYY-MM-DD", required: true }
+      - { label: "Auteur", name: "author", widget: "string", default: "Arnaud Oltra" }
+      - { label: "Temps de lecture (min)", name: "readingTime", widget: "number", min: 1, max: 60, default: 5 }
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        allow_add: true
+        field: { label: "Tag", name: "tag", widget: "string" }
+      - { label: "Image de couverture", name: "cover", widget: "image", required: false, hint: "Format recommandé : 1200x630px" }
+      - { label: "Citation mise en avant", name: "highlight", widget: "string", required: false, hint: "Citation affichée en grand dans l'article" }
+      - { label: "Contenu", name: "body", widget: "markdown" }
+
+  # ==================
+  # OFFRES
+  # ==================
+  - name: "offres"
+    label: "Offres"
+    folder: "content/offres"
+    create: true
+    slug: "{{order}}.{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    editor:
+      preview: false
+    sortable_fields: ['order', 'title']
+    fields:
+      - { label: "Titre", name: "title", widget: "string", required: true }
+      - { label: "Sous-titre", name: "subtitle", widget: "string", required: true, hint: "Ex: L'audit fondateur" }
+      - { label: "Icône (emoji)", name: "icon", widget: "string", required: true, hint: "Un emoji, ex: 🧊" }
+      - { label: "Ordre d'affichage", name: "order", widget: "number", min: 1, max: 10, required: true }
+      - { label: "Description courte", name: "description", widget: "text", required: true }
+      - label: "Points clés"
+        name: "points"
+        widget: "list"
+        allow_add: true
+        max: 6
+        field: { label: "Point", name: "point", widget: "string" }
+      - label: "Call to Action"
+        name: "cta"
+        widget: "object"
+        fields:
+          - { label: "Texte du bouton", name: "label", widget: "string", default: "Planifier un appel" }
+          - { label: "Lien", name: "link", widget: "string", default: "https://cal.com/arkonium" }
+      - { label: "Contenu détaillé", name: "body", widget: "markdown" }
+
+  # ==================
+  # RESSOURCES
+  # ==================
+  - name: "ressources"
+    label: "Ressources"
+    folder: "content/ressources"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    editor:
+      preview: false
+    fields:
+      - { label: "Titre", name: "title", widget: "string", required: true }
+      - { label: "Description", name: "description", widget: "text", required: true }
+      - { label: "Icône (emoji)", name: "icon", widget: "string", required: true }
+      - { label: "Ordre d'affichage", name: "order", widget: "number", min: 1, max: 20, required: true }
+      - label: "Catégorie"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Livret PDF", value: "livret" }
+          - { label: "Outil", value: "outil" }
+        required: true
+      - label: "Type de ressource"
+        name: "type"
+        widget: "select"
+        options:
+          - { label: "PDF téléchargeable", value: "pdf" }
+          - { label: "Lien externe", value: "external" }
+          - { label: "Bientôt disponible", value: "coming-soon" }
+        required: true
+      - { label: "URL de téléchargement (PDF)", name: "downloadUrl", widget: "string", required: false, hint: "Ex: /pdf/livret-produit.pdf" }
+      - { label: "URL externe", name: "externalUrl", widget: "string", required: false, hint: "Pour les liens vers des outils externes" }
+      - { label: "Contenu additionnel", name: "body", widget: "markdown", required: false }
+
+  # ==================
+  # PARAMÈTRES DU SITE
+  # ==================
+  - name: "settings"
+    label: "Paramètres"
+    files:
+      - name: "site"
+        label: "Configuration générale"
+        file: "content/settings/site.json"
+        fields:
+          - { label: "Nom du site", name: "siteName", widget: "string", default: "Arkonium" }
+          - { label: "Tagline", name: "tagline", widget: "string", default: "Structurer. Sécuriser. Scaler." }
+          - { label: "Email de contact", name: "contactEmail", widget: "string" }
+          - { label: "URL Calendly/Cal.com", name: "bookingUrl", widget: "string", default: "https://cal.com/arkonium" }
+          - { label: "LinkedIn", name: "linkedinUrl", widget: "string" }

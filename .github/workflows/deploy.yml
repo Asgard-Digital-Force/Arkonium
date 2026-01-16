@@ -5,6 +5,7 @@ on:
     tags:
       - '*'
   workflow_dispatch:
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -13,41 +14,71 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Clean install
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Set environment variables
         run: |
-          rm -rf node_modules package-lock.json
-          npm install
+          echo "RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}" >> .env
+          echo "RESEND_AUDIENCE_ID=${{ secrets.RESEND_AUDIENCE_ID }}" >> .env
+          echo "RESEND_FROM_EMAIL=${{ secrets.RESEND_FROM_EMAIL }}" >> .env
 
-      - name: Build
-        run: npm run build
+      - name: Generate static site
+        run: npm run generate
 
-      - name: Set .env.preprod
+      - name: Add .htaccess for SPA routing and security
         run: |
-          echo "VITE_APP_VERSION=$(echo $GITHUB_REF | sed 's|refs/tags/||')" >> .env
+          cat <<'EOF' > .output/public/.htaccess
+          # Sécurité
+          <IfModule mod_headers.c>
+            Header set X-Content-Type-Options "nosniff"
+            Header set X-Frame-Options "SAMEORIGIN"
+            Header set X-XSS-Protection "1; mode=block"
+            Header set Referrer-Policy "strict-origin-when-cross-origin"
+          </IfModule>
 
-      - name: Check .env content
-        run: cat .env
+          # Cache statique
+          <IfModule mod_expires.c>
+            ExpiresActive On
+            ExpiresByType image/png "access plus 1 month"
+            ExpiresByType image/jpeg "access plus 1 month"
+            ExpiresByType image/webp "access plus 1 month"
+            ExpiresByType application/pdf "access plus 1 week"
+            ExpiresByType text/css "access plus 1 week"
+            ExpiresByType application/javascript "access plus 1 week"
+          </IfModule>
 
-      - name: Build project
-        run: npm run build
-
-      - name: Add .htaccess for SPA routing
-        run: |
-          cat <<EOF > dist/.htaccess
+          # SPA Routing
           <IfModule mod_rewrite.c>
-          RewriteEngine On
-          RewriteBase /
-          RewriteCond %{REQUEST_FILENAME} !-f
-          RewriteCond %{REQUEST_FILENAME} !-d
-          RewriteRule ^ index.html [L]
+            RewriteEngine On
+            RewriteBase /
+
+            # Ne pas réécrire les fichiers existants
+            RewriteCond %{REQUEST_FILENAME} !-f
+            RewriteCond %{REQUEST_FILENAME} !-d
+
+            # Rediriger vers index.html pour les routes SPA
+            RewriteRule ^(.*)$ /index.html [L]
+          </IfModule>
+
+          # Compression
+          <IfModule mod_deflate.c>
+            AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json
           </IfModule>
           EOF
 
       - name: Deploy via SSH
-        uses: appleboy/scp-action@v0.1.4
+        uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
-          source: "dist/*"
+          source: ".output/public/*"
           target: "/homez.1035/mqtmcvu/www/arkonium"
+          strip_components: 2
