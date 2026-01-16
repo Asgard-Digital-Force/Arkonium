@@ -1,16 +1,10 @@
 [build]
-  command = "npm run generate"
+  command = "npm ci && npm run generate"
   publish = ".output/public"
 
 [build.environment]
   NODE_VERSION = "20"
-
-# Redirects pour SPA
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  conditions = {Role = ["admin"]}
+  NPM_FLAGS = "--legacy-peer-deps"
 
 # Headers de sécurité
 [[headers]]
@@ -36,3 +30,9 @@
   for = "/_nuxt/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# Redirects pour le fallback SPA (pages non pré-rendues)
+[[redirects]]
+  from = "/*"
+  to = "/200.html"
+  status = 200
